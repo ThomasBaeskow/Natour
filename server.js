@@ -39,6 +39,14 @@ process.on("uncaughtException", err => {
   console.log(err.name, err.message);
   process.exit(1)
 })
+
+// SIGNAL to stop the application. Heroku will shut down our application every 24 hours by sending this signal/event to our application. This allows our requests to complete and then the application shuts down.
+process.on("SIGTERM", () => {
+  console.log("SIGTERM RECEIVED. Shutting down gracefully");
+  server.close(() => {
+    console.log("Process terminated!");
+  })
+})
 // console.log(x);
 
 // global error Handler:

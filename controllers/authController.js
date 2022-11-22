@@ -13,22 +13,18 @@ const signToken = id => {
     })
 }
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
     const token = signToken(user._id) // --> the object "{id: newUser._id}" is the payload which we add to our JWT. Second parameter is our "secret" with at least 32 characters. We store it in config.env. third parameter is an additional option. The "JWT Header "will be added automatically from JWT package.
     // we can use the debugger on "jwt.io" to look at our token.(Header,Payload,Secret)
 
-    // CREATING COOKIE --> res.cookie("cookieName", cookieValue, {options})
+    // CREATING COOKIE --> res.cookie("cookieName", cookieValue, {cookieoptions})
     // is a small piece of text which a server sends to clients. When client receives the cookie it will automatically be stored and send back along with all future requests to the same server.
-    const cookieOptions = {
+
+    res.cookie("jwt", token, { // this sends the cookie as respond to client
         expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000), // converting to milliseconds
-        // secure: true, // cookie will only send on encrypted connection (https)
-        httpOnly: true // cookie can not be accessed or modified in any way by the browser (Cross-Site scripting attacks)
-        // sameSite:"Lax"
-    }
-
-    if (process.env.NODE_ENV === "production") cookieOptions.secure = true // we just want to set this option in production mode to be able to send the cookie in dev mode.
-
-    res.cookie("jwt", token, cookieOptions) // this sends the cookie as respond to client
+        httpOnly: true, // cookie can not be accessed or modified in any way by the browser (Cross-Site scripting attacks)
+        secure: req.secure || req.headers("x-forwarded-proto") === "https" // cookie will only send on encrypted connection (https). That line is necessary for heroku.
+    })
     // console.log(cookieOptions);
 
     user.password = undefined // we dont want to see the password on the client site
@@ -58,7 +54,7 @@ export const signup = catchAsync(async (req, res, next) => {
     // JWT - Login Users with secure JWT
     // for authentication we install the package "jsonwebtoken"
     // documentation on github. We can use jwt methods like (sign, verify, etc)
-    createSendToken(newUser, 201, res)
+    createSendToken(newUser, 201, req, res)
 })
 
 // LOGIN
@@ -80,7 +76,7 @@ export const login = catchAsync(async (req, res, next) => {
     }
 
     // 3) If everything ok, send token to client
-    createSendToken(user, 200, res)
+    createSendToken(user, 200, req, res)
 })
 
 // We create a workaround for deleting the cookie (which is not possible because of httpOnly: true). When users logout, we create a logout route on clicking on lockout button that will send back a new cookie with the exact same name, but without the token. this will overwrite the current cookie in the browser with one that has the same name, but no token. When that cookie is send along with next request, we cannot identify the user anymore and deny access. Cookie gets very short expiration time. its like deleting.
@@ -228,7 +224,7 @@ export const resetPassword = catchAsync(async(req, res, next) => {
     // we do this in our user model as a pre save middleware!
 
     // 4) Log the user in, send JWT
-    createSendToken(user, 200, res)
+    createSendToken(user, 200, req, res)
 })
 
 
@@ -247,6 +243,6 @@ export const updatePassword = catchAsync(async(req, res, next) => {
     await user.save() // we are not turning off the validations of the model because we want it for passwords and emails. User.findByIdAndUpdate will not work!
 
     // 4) Log user in, send JWT
-    createSendToken(user, 200, res)
+    createSendToken(user, 200, req, res)
 
 })

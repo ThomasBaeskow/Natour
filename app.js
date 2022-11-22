@@ -26,6 +26,9 @@ const __dirname = path.resolve();
 
 const app = express();
 
+// we want to enable proxis (heroku) - "trust proxy" is express build in
+app.enable("trust proxy")
+
 // DEFINE VIEW ENGINE (MVC architecture- 3 components: model, views, controller)
 // express automatically supports the most common engines like "pug". We need to install and import it
 // example in base.pug (h1 The Park Camper ==> transforms into: <h1>The Park Camper</h1> by pug engine)
