@@ -72,7 +72,7 @@ export const getCheckoutSession = catchAsync(async(req, res, next) => {
 const createBookingCheckout = async session => {
     const tour = session.client_reference_id
     const user = (await User.findOne({email: session.customer_email})).id
-    const price = session.data[0].object.amount_total / 100
+    const price = session.data.object.amount_total / 100 // thats how the object is structured. You can see it on stripe.com in your webhook.
     await Booking.create({tour, user, price})
 }
 
