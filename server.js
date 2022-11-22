@@ -22,7 +22,7 @@ mongoose.connect(DB, {
 .then(() => 
  app.listen(port, console.log(`DB connected and listening on ${port}`)))
 .catch((err) => {
-  console.log(`${err} dit not connect...`);
+  console.log(`${err} did not connect...`);
 })
 
 

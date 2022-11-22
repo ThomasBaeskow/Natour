@@ -6,7 +6,7 @@ export const login = async(email, password) => {
     try {
         const result = await axios({ // we are sending the data which contains the email and password which the user provided to the client, to our Backend.
             method: "POST",
-            url: `https://natours-lbx3.onrender.com/api/v1/users/login`, // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000/api/v1/users
+            url: `http://127.0.0.1:3000/api/v1/users/login`, // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000
             data: {
                 email,
                 password
@@ -28,7 +28,7 @@ export const logout = async () => {
     try {
         const result = await axios({
             method: "GET",
-            url: `https://natours-lbx3.onrender.com/api/v1/users/logout`,  // needs to be the same path like in the routes! // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND
+            url: `http://127.0.0.1:3000/api/v1/users/logout`,  // needs to be the same path like in the routes! // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND
             
         })
         if ((result.data.status === "success")) location.reload(true) // THIS WILL FORCE A RELOAD FROM THE SERVER SIDE. means the updated cookie is stored on the req.cookies.jwt field. we are logged out!

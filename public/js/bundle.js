@@ -11945,8 +11945,8 @@ var login = /*#__PURE__*/function () {
             return (0, _axios.default)({
               // we are sending the data which contains the email and password which the user provided to the client, to our Backend.
               method: "POST",
-              url: "https://natours-lbx3.onrender.com/api/v1/users/login",
-              // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000/api/v1/users
+              url: "http://127.0.0.1:3000/api/v1/users/login",
+              // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000
               data: {
                 email: email,
                 password: password
@@ -11989,7 +11989,7 @@ var logout = /*#__PURE__*/function () {
             _context2.next = 3;
             return (0, _axios.default)({
               method: "GET",
-              url: "https://natours-lbx3.onrender.com/api/v1/users/logout" // needs to be the same path like in the routes! // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND
+              url: "http://127.0.0.1:3000/api/v1/users/logout" // needs to be the same path like in the routes! // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND
             });
           case 3:
             result = _context2.sent;
@@ -12089,7 +12089,7 @@ var updateSettings = /*#__PURE__*/function () {
         switch (_context.prev = _context.next) {
           case 0:
             _context.prev = 0;
-            url = type === "password" ? "https://natours-lbx3.onrender.com/api/v1/users/updateMyPassword" : "https://natours-lbx3.onrender.com/api/v1/users/updateMe";
+            url = type === "password" ? "http://127.0.0.1:3000/api/v1/users/updateMyPassword" : "http://127.0.0.1:3000/api/v1/users/updateMe";
             _context.next = 4;
             return (0, _axios.default)({
               method: "PATCH",
@@ -12146,7 +12146,7 @@ var bookTour = /*#__PURE__*/function () {
             stripe = Stripe("pk_test_51M58bGEuMrztGyp5E0Uh3ZPWWEDlfEO4xDG3YJ1IXn4dkoEXzqmerAhVcnx76VfOPm4Ox5S5u0QN7oRlS0RybTL900c3VWK7Xx"); // here we need our publishable public key from stripe account
             _context.prev = 1;
             _context.next = 4;
-            return (0, _axios.default)("https://natours-lbx3.onrender.com/api/v1/booking/checkout-session/".concat(tourId));
+            return (0, _axios.default)("http://127.0.0.1:3000/api/v1/booking/checkout-session/".concat(tourId));
           case 4:
             session = _context.sent;
             // axios returns an object with property data, where the actual data is stored. We are fetching the checkout session object to our frontend which gets created in backend, on that route. data is dynamic according to the tourId. We use that checkout session object to create the frontend checkout form and charge the credit card of the user.
@@ -12426,7 +12426,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45377" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34243" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
