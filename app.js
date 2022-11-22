@@ -16,6 +16,8 @@ import xss from "xss-clean"
 import hpp from "hpp"
 import cookieParser from "cookie-parser"
 import bookingRouter from "./routes/bookingRoutes.js"
+import compression from "compression"
+
 
 
 dotenv.config({ path: './config.env' });
@@ -84,6 +86,9 @@ app.use(hpp({
     "price"
   ]
 }))
+
+// calling this packages compresses all the text or json data which is send from backend to the client. Increases performance speed.
+app.use(compression())
 
 // 8) Test middleware
 // request time for every request added to the request object as a key.
