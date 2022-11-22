@@ -19,6 +19,7 @@ import bookingRouter from "./routes/bookingRoutes.js"
 import compression from "compression"
 import cors from "cors"
 import {webhookCheckout} from "./controllers/bookingController.js"
+import bodyParser from "body-parser"
 
 
 
@@ -69,7 +70,7 @@ const limiter = rateLimit({
 // Body parser, reading data from body into req.body
 app.use("/api", limiter) // we just want to apply our limiter middleware for routes which start with "/api". When we restart our application (save), the limit resets
 
-app.post("/webhook-checkout", express.raw({type: "application/json"}), webhookCheckout)
+app.post("/webhook-checkout", bodyParser.raw({type: "application/json"}), webhookCheckout)
 
 
 // 5) Body parser, reading data from body into req.body
