@@ -18,6 +18,7 @@ import cookieParser from "cookie-parser"
 import bookingRouter from "./routes/bookingRoutes.js"
 import compression from "compression"
 import cors from "cors"
+import {webhookCheckout} from "./controllers/bookingController.js"
 
 
 
@@ -67,11 +68,15 @@ const limiter = rateLimit({
 
 // Body parser, reading data from body into req.body
 app.use("/api", limiter) // we just want to apply our limiter middleware for routes which start with "/api". When we restart our application (save), the limit resets
-app.use(cookieParser())
-app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+
+app.post("/webhook-checkout", express.raw({type: "application/json"}), webhookCheckout)
+
 
 // 5) Body parser, reading data from body into req.body
 app.use(express.json({limit: "10kb"})); // we can add options to our .json middleware to limit the data which the client can send to our application. We limit to10 kilobyte
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));
+app.use(cookieParser())
+
 
 // 6) Data sanitization 
 // a) against NoSQL query injection

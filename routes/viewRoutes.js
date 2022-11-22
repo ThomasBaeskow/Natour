@@ -1,7 +1,7 @@
 import express from "express";
 import { getOverview, getTour, getLoginForm, getAccount, updateUserData, getMyTours} from "../controllers/viewsController.js";
 import { isLoggedIn, protect } from "../controllers/authController.js";
-import { createBookingCheckout } from "../controllers/bookingController.js";
+// import { createBookingCheckout } from "../controllers/bookingController.js";
 
 
 const router = express.Router()
@@ -20,7 +20,7 @@ router.get("/login", isLoggedIn, getLoginForm)
 router.get("/me", protect, getAccount)
 
 // renders the Current Users booked tours page
-router.get("/my-tours", createBookingCheckout, protect, getMyTours)
+router.get("/my-tours", protect, getMyTours) // createBookingCheckout is not needed after deploying and using strip webhooks
 
 // updates the user data in the backend DB Collection User.
 router.post("/submit-user-data", protect, updateUserData)
