@@ -6,7 +6,7 @@ export const login = async(email, password) => {
     try {
         const result = await axios({ // we are sending the data which contains the email and password which the user provided to the client, to our Backend.
             method: "POST",
-            url: `http://127.0.0.1:3000/api/v1/users/login`, // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000
+            url: `http://127.0.0.1:3000/api/v1/users/login`, // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000/api/v1/users
             data: {
                 email,
                 password
@@ -14,7 +14,8 @@ export const login = async(email, password) => {
         })
 
         if (result.data.status === "success") {
-            showAlert("success", 'Logged in successfully!')
+            showAlert("success", 'Logged in successfully!');
+            
             window.setTimeout(() => {
                 location.assign("/") // after 1.5 seconds we redirect the route to the root "/" - where we see overview of all the tours
             }, 1500)
