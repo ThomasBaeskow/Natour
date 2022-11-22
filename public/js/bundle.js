@@ -11946,7 +11946,7 @@ var login = /*#__PURE__*/function () {
               // we are sending the data which contains the email and password which the user provided to the client, to our Backend.
               method: "POST",
               url: "http://127.0.0.1:3000/api/v1/users/login",
-              // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000
+              // HTTP REQUEST IS ONE WAY OF SENDING DATA TO THE BACKEND  // needs to be the same path like in the routes! http://127.0.0.1:3000/api/v1/users
               data: {
                 email: email,
                 password: password
@@ -12426,7 +12426,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34243" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36589" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
