@@ -62,7 +62,7 @@ userSchema.pre("save", async function(next) {
 
   } else {
     this.password = await bcrypt.hash(this.password, 12) // here we encrypt (hash) the current documents password with a cost of 12. its like adding additional string to the password.
-    console.log(this.password);
+    // console.log(this.password);
     this.confirmPassword = undefined // the confirmPassword field wont be saved to the DB
     next()
   }
@@ -114,7 +114,7 @@ userSchema.methods.createPasswordResetToken = function() {
   // update our 32 character String encrypted.
   this.passwordResetToken = crypto.createHash("sha256").update(resetToken).digest("hex") // we are updating our field in model with the encrypted String
 
-  console.log({resetToken}, this.passwordResetToken);
+  // console.log({resetToken}, this.passwordResetToken);
   this.passwordResetExpires = Date.now() + 60 * 60 * 1000 // for 60 minutes, for seconds, for milli-seconds --> new reset token expires after 10 minutes!
 
   return resetToken // we return the 32 character string (secret) to send it in the next step to the user

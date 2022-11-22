@@ -62,7 +62,7 @@ reviewSchema.statics.calcAverageRatings = async function(tourId) {
       }
     }
   ]) // "this" points to the model. "Review.aggregate()"  (aggregate just works on Models.)
-  console.log(stats);
+  // console.log(stats);
 
   if (stats.length > 0) { // if we find in our review DB collection a document (review) with the field tour and value of the tourId (the id of the tours document).
     // we are updating our fields "ratingsQuantity" and "ratingsAverage" in our "Review" Model after a Document got saved.

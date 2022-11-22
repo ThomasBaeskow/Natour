@@ -12,7 +12,7 @@ const handleCastErrorDB = err => {
 // MongoError: HANDLE DUPLICATE FIELDS
 const handleDuplicateFieldsDB = err => {
     const value = err.message.match(/(["'])(\\?.)*?\1/)[0] // matches all the text between strings ("') [0] picks the first string of the array which you can se in console.log(value) without [0]
-    console.log(value);
+    // console.log(value);
 
     const message = `Duplicate field value: ${value} is already existing!` // path and value are saved in the error object automatically as properties.
     return new AppError(message, 400)

@@ -16,7 +16,7 @@ const bookBtn = document.getElementById('book-tour') // we select the button in 
 // DELEGATION
 if (mapBox) {
     const locations = JSON.parse(mapBox.dataset.locations);
-    console.log(locations);
+    // console.log(locations);
     displayMap(locations); // we pass in the data from our tour locations. We passed this data in out tour.pug by saving it on mapBox.dataset.locations property.
   }
 
@@ -38,7 +38,7 @@ if (userDataForm) userDataForm.addEventListener("submit", e => {
     form.append("name", document.getElementById("name").value) // the input field have id name
     form.append("email", document.getElementById("email").value) // the input field have id email
     form.append("photo", document.getElementById("photo").files[0]) // because in frontend input field its type is file. Thats why its getting stored in files[0]
-    console.log(form);
+
     updateSettings(form, "data") // we pass in our updateData function (which will connect and send this updated data to the backend).Backendcontroller will update DB
 })
 

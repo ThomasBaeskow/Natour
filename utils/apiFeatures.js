@@ -14,7 +14,7 @@ class APIFeatures {
       let queryStr = JSON.stringify(queryObj) 
       queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`)
 
-      console.log(JSON.parse(queryStr));
+      // console.log(JSON.parse(queryStr));
      
       this.query = this.query.find(JSON.parse(queryStr))
   
@@ -24,7 +24,7 @@ class APIFeatures {
     sort() {
       if(this.queryString.sort) { // when sort exists in the query object
         const sortBy = this.queryString.sort.split(",").join(" ")
-        console.log(sortBy);
+        // console.log(sortBy);
         this.query = this.query.sort(sortBy) // we want to sort our query by the value of sort, which is price. ascending order:(127.0.0.1:3000/api/v1/tours?sort=price), descending order: (127.0.0.1:3000/api/v1/tours?sort=-price)
         // sort("price ratingAverage") --> when we want to sort by price and then by ratingAverage: (127.0.0.1:3000/api/v1/tours?sort=-price,-ratingAverage)
       } 
@@ -51,7 +51,7 @@ class APIFeatures {
       const page = this.queryString.page * 1 || 1; // converts string to number and set default value of page to 1 if theres no value set to the field page in query string
       const limit = this.queryString.limit * 1 || 100; // converts string to number and set default value of limit to 100. Example: we have more then 1 million documents in our collection. We just wanna show the user 100 
       const skip = (page - 1) * limit; // if the user wants to see page 2 (page=2&limit=10) the calculation would be: skip = (2 - 1) * 10 ==> 10
-      console.log(skip);
+      // console.log(skip);
       // page=2&limit=10      1-10 page 1, 11-20 page 2, 21-30 page 3
       this.query = this.query.skip(skip).limit(limit); // means if we want to see page 2 we need to skip 10 docs, cause on page 1 are 1-10 docs and on page 2 are 11-20 docs. 10 by page cause of the limit field.
       return this;

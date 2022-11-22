@@ -177,11 +177,11 @@ tourSchema.pre(/^find/, function(next) {
 })
 
 // the post query (find) middleware runs after the query is executed. thats why it has access to the processed documents of the query
-tourSchema.post(/^find/, function(docs, next) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds`);
-  // console.log(docs);
-  next()
-})
+// tourSchema.post(/^find/, function(docs, next) {
+//   console.log(`Query took ${Date.now() - this.start} milliseconds`);
+//   // console.log(docs);
+//   next()
+// })
 
 // AGGREGATION MIDDLEWARE -  "this" points to the current aggregation-object -  We get rid of this middleware because our "$geoNear" has to be he first stage in aggregation pipeline!
 // tourSchema.pre("aggregate", function(next) {

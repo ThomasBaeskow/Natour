@@ -84,7 +84,7 @@ export const updateCurrentUserData = catchAsync(async (req, res, next) => {
 
   if (req.file) filteredBody.photo = req.file.filename // we check if the user uploaded an image, which gets saved in req.file. If yes we create a property inside our filteredBody object called photo, where we store the filename of the uploaded image.
 
-  console.log(filteredBody);
+  // console.log(filteredBody);
 
   // 3) Update user document
   // we are not passing as the second parameter req.body because we dont want to allow the user to update every field. for example:

@@ -259,7 +259,7 @@ export const getTourWithin = catchAsync(async(req, res, next) => {
   }) 
 
 
-  console.log(distance, lat, lng, unit);
+  // console.log(distance, lat, lng, unit);
 
   res.status(200).json({
     status: "success",

@@ -4,7 +4,7 @@ import {showAlert} from "./alerts.js"
 // type is either "password" or "data". "data" is the data object
 export const updateSettings = async(data, type) => { // the 2 parameter (data) we want to update in our API
     try {
-        const url = type === "password" ? "http://127.0.0.1:3000/api/v1/users/updateMyPassword" : "http://127.0.0.1:3000/api/v1/users/updateMe"
+        const url = type === "password" ? "/api/v1/users/updateMyPassword" : "/api/v1/users/updateMe"
         const result = await axios({
             method: "PATCH",
             url: url, // the route in backend which we want to update ( where our controller UpdateMe is mounted). We update the name and email in our DB of the current User

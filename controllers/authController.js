@@ -51,7 +51,7 @@ export const signup = catchAsync(async (req, res, next) => {
     const newUser = await User.create(req.body)
     const url = `${req.protocol}://${req.get("host")}/me`
 
-    console.log(url);
+    // console.log(url);
 
     await new Email(newUser, url).sendWelcome() //  pass in our Email class, which builds objects with email data, according to the newUsers data and the url we pass in.
 
@@ -72,7 +72,7 @@ export const login = catchAsync(async (req, res, next) => {
 
     // 2) Check if user exists && password is correct
     const user = await User.findOne({email}).select("+password") // --> its short for {email: email} -- this looks in our DB if the email is existing and if the password is correct. .select("+password") means --> we excluded in our model User the password. Thats why we have to add it here again to have access.
-    console.log(user);
+    // console.log(user);
     // "test1234" === '$2a$12$im0/kJn2OSC4raVqxJb5k.RYJhQmkiome6pL9A4PQcg4wqIAHSuvm' --> we need to compare the encrypted password in DB with users typed in password. To solve this we need to encrypt the users password too in our User model with bcrypt package
 
     if(!user || !(await user.correctPassword(password, user.password))) { // if theres no user with the given email or the password is not the same --> execute the error and stop the process. // return true if they are same, false if not (password, user.password)
@@ -110,7 +110,7 @@ export const protect = catchAsync(async(req, res, next) => {
 
     // 2) Validate the token - VERIFICATION
     const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET) // jwt.verify(tokenString, secret, callback) the callback runs as soon as the verification has completed. its an async function.
-    console.log(decoded); // we can see that the id in our DB is the same with the id of the user, who logged in with his JWT. In JWT is the _id saved in the payload.
+    // console.log(decoded); // we can see that the id in our DB is the same with the id of the user, who logged in with his JWT. In JWT is the _id saved in the payload.
 
     // 3) Check if user still exists
     const currentUser = await User.findById(decoded.id) // it checks if the id, which was send with the token, is still existing in our DB.
@@ -131,7 +131,7 @@ export const protect = catchAsync(async(req, res, next) => {
 
 // ONLY FOR RENDERED PAGES, no errors!
 export const isLoggedIn = async(req, res, next) => {
-    console.log(req.cookies.jwt);
+    // console.log(req.cookies.jwt);
     if (req.cookies.jwt) { // req.cookies is the property which on default holds the jwt. When you log in it gets created from the backend and saved into a cookie, which is send to the frontend and saved into req.cookies.jwt. You can see that by investigating in google chrome browser the cookie.
         try {
             // 1) Verify token - VERIFICATION
@@ -139,7 +139,7 @@ export const isLoggedIn = async(req, res, next) => {
 
         // 2) Check if user still exists
         const currentUser = await User.findById(decoded.id) // it checks if the id, which was send with the token, is still existing in our DB.
-        console.log(currentUser);
+        // console.log(currentUser);
         if (!currentUser) {
             return next()
         }
@@ -236,7 +236,7 @@ export const resetPassword = catchAsync(async(req, res, next) => {
 export const updatePassword = catchAsync(async(req, res, next) => {
     // 1) Get user from collection
     const user = await User.findById(req.user.id).select("+password")
-    console.log(req.user);
+    // console.log(req.user);
     // 2) Check if POSTed password is correct
     if(!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
         return next(new AppError("Your current password is wrong!", 401))
