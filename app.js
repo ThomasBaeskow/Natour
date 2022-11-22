@@ -38,8 +38,12 @@ app.set("view engine", "pug")
 app.set("views", path.join(__dirname, "views")) // Thats the correct way to write, because of a common bug. We could also write but this is not save regarding the common bug: ("views", `${__dirname}/views`)
 
 // GLOBAL MIDDLEWARES
-// implement cors
+// implement cors - Access-Control-Allow-Origin header is added
 app.use(cors())
+
+// options is like another http method (get,post,patch,delete,etc). The browser sends an option request, when there is a preflight phase. (delete or patch requests)
+app.options("*", cors())
+
 // 1) Serving static files
 // app.use(express.static(`${__dirname}/public`)); // when we type now in our browser 127.0.0.1:3000/overview.html we can see our html file displayed in the browser. We can do that with all our static files
 app.use(express.static(path.join(__dirname, "public")))
