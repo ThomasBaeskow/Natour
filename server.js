@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 import app from './app.js';
 import dotenv from "dotenv"
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; // thats mandatory for deploying on heroku
 
 dotenv.config({ path: './config.env' });
 
