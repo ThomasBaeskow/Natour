@@ -36,8 +36,7 @@ export const getCheckoutSession = catchAsync(async(req, res, next) => {
                     unit_amount: tour.price * 100, // price of the purchased product. multiplied by 100 cause we need to convert it to cents. stripe stuff.
                     product_data: {
                         name: `${tour.name} Tour`, // product name
-                        images: [`${req.protocol}://${req.get("host")}/img/tours/${tour.imageCover}`], // we have to change that later
-                        description: tour.summary
+                        images: [`${req.protocol}://${req.get("host")}/img/tours/${tour.imageCover}`],
                     }
                 },
                 quantity: 1
@@ -71,6 +70,7 @@ export const getCheckoutSession = catchAsync(async(req, res, next) => {
 
 const createBookingCheckout = async session => {
     const tour = session.client_reference_id
+    console.log(tour);
     const user = (await User.findOne({email: session.customer_email})).id
     const price = session.data.object.amount_total / 100 // thats how the object is structured. You can see it on stripe.com in your webhook.
     await Booking.create({tour, user, price})
