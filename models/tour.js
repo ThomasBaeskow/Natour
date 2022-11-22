@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 import slugify from "slugify"
-import validator from "validator"
+// import validator from "validator"
 // import User from "./user.js"
 
 const tourSchema = mongoose.Schema({
