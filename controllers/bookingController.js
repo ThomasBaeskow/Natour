@@ -36,7 +36,7 @@ export const getCheckoutSession = catchAsync(async(req, res, next) => {
                     unit_amount: tour.price * 100, // price of the purchased product. multiplied by 100 cause we need to convert it to cents. stripe stuff.
                     product_data: {
                         name: `${tour.name} Tour`, // product name
-                        images: [`https://www.natours.dev/img/tours/${tour.imageCover}`], // we have to change that later
+                        images: [`${req.protocol}://${req.get("host")}/img/tours/${tour.imageCover}`], // we have to change that later
                         description: tour.summary
                     }
                 },
@@ -72,7 +72,7 @@ export const getCheckoutSession = catchAsync(async(req, res, next) => {
 const createBookingCheckout = async session => {
     const tour = session.client_reference_id
     const user = (await User.findOne({email: session.customer_email})).id
-    const price = session.line_items[0].price_data.unit_amount / 100
+    const price = session.data[0].object.amount_total / 100
     await Booking.create({tour, user, price})
 }
 
