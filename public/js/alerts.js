@@ -5,9 +5,9 @@ export const hideAlert = () => {
 }
 
 // type is "success" or "error"
-export const showAlert = (type, msg, time = 7) => {
+export const showAlert = (type, msg) => {
     hideAlert()
     const markup = `<div class="alert alert--${type}">${msg}</div>`
     document.querySelector("body").insertAdjacentHTML("afterbegin", markup) // right at the beginning of the body we create a div, which gets classes according to the parameter passed into showAlert(type,msg) in login.js
-    window.setTimeout(hideAlert, 5000, time * 1000) // the div element will be removed after 5 seconds
+    window.setTimeout(hideAlert, 5000) // the div element will be removed after 5 seconds
 }
