@@ -5,6 +5,13 @@ import AppError from "../utils/appError.js"
 import Booking from "../models/booking.js"
 
 
+export const alerts = (req, res, next) => {
+  const {alert} = req.query // we destructure the alert variable from the query. We put alert on the query in our bookingcontroller in the successUrl when we create the checkout session
+  if (alert === "booking")
+    res.locals.alert = "Your booking was successful! Please check your email for a confirmation. If your booking doesn't show up immediately, please come back later."
+    next()
+}
+
 export const getOverview = catchAsync(async(req, res, next) => {
     // 1) Get tour data from collection
     const tours = await Tour.find()

@@ -1,10 +1,12 @@
 import express from "express";
-import { getOverview, getTour, getLoginForm, getAccount, updateUserData, getMyTours} from "../controllers/viewsController.js";
+import { getOverview, getTour, getLoginForm, getAccount, updateUserData, getMyTours, alerts} from "../controllers/viewsController.js";
 import { isLoggedIn, protect } from "../controllers/authController.js";
 // import { createBookingCheckout } from "../controllers/bookingController.js";
 
 
 const router = express.Router()
+
+router.use(alerts)
 
   // Views route for rendering overview page with all tours
   // overview.pug extends the base --> it includes the base, thats why we can render just overview.pug or tour.pug and still rendering base with it. 

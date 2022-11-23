@@ -3,6 +3,8 @@ import {login, logout} from "./login.js"
 import { displayMap } from "./mapbox.js";
 import { updateSettings } from './updateSettings.js';
 import { bookTour } from './stripe.js';
+import { alerts } from '../../controllers/viewsController.js';
+import { showAlert } from './alerts.js';
 
 // this file is mostly for getting the data from the user interface.
 // DOM ELEMENTS
@@ -61,3 +63,6 @@ if (bookBtn) bookBtn.addEventListener("click", e => {
     const {tourId} = e.target.dataset // JS is converting the id "tour-id" to tourId. Thats why we need to target with tourId. We sore that id in variable.
     bookTour(tourId) // we pass in as parameter the tourId. Booktour will make an API request to the backends route: await axios(`http://127.0.0.1:3000/api/v1/booking/checkout-session/${tourId}`) ==> which returns a checkout session (payment).
 })
+
+const alertMessage = document.querySelector("body").dataset.alertMessage
+if (alert) showAlert("success", alertMessage, 20)

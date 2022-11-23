@@ -23,7 +23,7 @@ export const getCheckoutSession = catchAsync(async(req, res, next) => {
         // 1) first part is for information about the session itself
         mode: "payment", // single payment, no subscription
         // success_url: `${req.protocol}://${req.get("host")}/my-tours/?tour=${req.params.tourId}&user=${req.user.id}&price=${tour.price}`, // user gets redirected to this url after paying successful. WE STORE tourId, userId and tour price to req.query object.
-        success_url: `${req.protocol}://${req.get("host")}/my-tours`,
+        success_url: `${req.protocol}://${req.get("host")}/my-tours?alert=booking`,
         cancel_url: `${req.protocol}://${req.get("host")}/tour/${tour.slug}`, // user gets redirected to this url when canceling payment
         payment_method_types: ["card"], // payment methods
         customer_email: req.user.email,
